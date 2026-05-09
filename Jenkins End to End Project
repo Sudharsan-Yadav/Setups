@@ -8,6 +8,13 @@ pipeline{
             maven "MyMaven"
         }
     stages{
+        stage("Command"){
+            steps{
+                sh 'touch sai'
+                sh 'timedatectl'
+                sh 'cal'
+            }
+        }
         stage("Code"){
             steps{
                 git 'https://github.com/Sudharsan-Yadav/Setups.git'

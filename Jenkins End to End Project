@@ -1,0 +1,57 @@
+pipeline{
+    agent{
+        node{
+            label "Dev"
+        }
+    }
+    tools{
+            maven "MyMaven"
+        }
+    stages{
+        stage("Code"){
+            steps{
+                git 'https://github.com/Sudharsan-Yadav/Setups.git'
+            }
+        }
+        stage("CQA"){
+            steps{
+                withSonarQubeEnv("MySonar") {
+                sh '''
+                mvn sonar:sonar \
+                -Dsonar.projectKey=Maven \
+                -Dsonar.host.url=http://3.86.83.0:9000 \
+                -Dsonar.login=90547b77b3bc86490a99885128acbbbd1780bab6
+                '''
+                }
+            }
+        }
+        stage("Build"){
+            steps{
+                sh 'mvn clean package'
+            }
+        }
+        stage("Test"){
+            steps{
+                echo "Testing is also done"
+            }
+        }
+        stage("Artifact"){
+            steps{
+                nexusArtifactUploader artifacts: [[artifactId: 'myweb', classifier: '', file: 'target/myweb-8.7.1.war', type: 'war']], credentialsId: 'Nexus', groupId: 'in.javahome', nexusUrl: '3.92.0.35:8081/', nexusVersion: 'nexus3', protocol: 'http', repository: 'Krishav', version: '8.7.1'
+            }
+        }
+        stage("Deploy"){
+            input{
+                message "Can I deploy?"
+            }
+            steps{
+                deploy adapters: [tomcat9(alternativeDeploymentContext: '', credentialsId: 'Tomcat', path: '', url: 'http://44.202.60.178:8080/')], contextPath: 'e-commerce', war: 'target/*.war'
+            }
+        }
+    }
+    post{
+        success{
+            echo "My Pipeline is successful"
+        }
+    }
+}

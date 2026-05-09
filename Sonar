@@ -1,4 +1,4 @@
-yum install java-17-amazon-corretto -y
+yum install java-11-amazon-corretto -y
 java -version
 cd /opt
 wget https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-8.9.6.50800.zip

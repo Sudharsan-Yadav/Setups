@@ -1,0 +1,19 @@
+pipeline{
+    agent any
+    stages{
+        stage("code"){
+            steps{
+                echo "This is code stage"
+            }
+        }
+    }
+    post{
+        always{
+            mail(
+                to: "sudharsansubramanian2000@gmail.com",
+                subject: "Build Notification",
+                body: "Build completed successfully."
+            )
+        }
+    }
+}

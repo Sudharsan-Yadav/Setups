@@ -2,7 +2,7 @@ yum install java-21-amazon-corretto -y
 java -version
 cd /opt
 wget https://download.sonatype.com/nexus/3/nexus-3.93.0-06-linux-x86_64.tar.gz
-tar -zxvf nexus-3.91.1-04-linux-x86_64.tar.gz
+tar -zxvf nexus-3.93.0-06-linux-x86_64.tar.gz
 useradd nexus
 chown -R nexus:nexus nexus-3.91.1-04 sonatype-work/
 su - nexus

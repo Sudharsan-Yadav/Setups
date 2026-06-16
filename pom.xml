@@ -33,7 +33,7 @@
 		
 		<repository>
 		    <id>nexusRepo</id>
-		    <url>http://44.211.184.74:8081/repository/Krishav/</url>
+		    <url>http://44.211.47.195:8081/repository/Krishav/</url>
 		</repository>
   	</distributionManagement>
 	

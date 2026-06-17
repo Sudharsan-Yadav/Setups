@@ -33,7 +33,7 @@
 		
 		<repository>
 		    <id>nexusRepo</id>
-		    <url>http://52.55.148.7:8081/repository/sudhan/</url>
+		    <url>http://54.152.8.33:8081/repository/Krishav/</url>
 		</repository>
   	</distributionManagement>
 	

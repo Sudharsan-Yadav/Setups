@@ -1,0 +1,28 @@
+pipeline{
+    agent any
+    tools{
+        maven "MyMaven"
+    }
+    stages{
+        stage("Code"){
+            steps{
+                git 'https://github.com/Sudharsan-Yadav/Setups.git'
+            }
+        }
+        stage("Build"){
+            steps{
+                sh "mvn clean install -DskipTests"
+            }
+        }
+        stage("UnitTest"){
+            steps{
+                sh "mvn test"
+            }
+        }
+        stage("Artifact"){
+            steps{
+                s3Upload(profileName:'MyBucket',entries:[[bucket:'aws.sudhan.2000',sourceFile:'target/*.war',storageClass:'STANDARD',selectedRegion:'us-east-1',noUploadOnFailure:true]],userMetadata:[],dontWaitForConcurrentBuildCompletion:false,consoleLogLevel:'INFO',pluginFailureResultConstraint:'FAILURE',dontSetBuildResultOnFailure:false)
+            }
+        }
+    }
+}
